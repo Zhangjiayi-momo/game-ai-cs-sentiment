@@ -1,0 +1,8 @@
+# 临时文件和生成产物
+outputs/
+data/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>星陨纪 · AI智能客服与舆情监控中心 | Game AI Suite</title>
+  <link rel="stylesheet" href="public/css/main.css" />
+  <!-- Chart.js CDN：图表渲染（首次需联网，后续浏览器缓存可用） -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="app">
+
+  <!-- ==================== 左侧导航 Sider ==================== -->
+  <aside class="sider">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div class="brand-title">Game AI Suite</div>
+        <div class="brand-sub">智能客服 × 舆情监控</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-group-title">核心模块</div>
+      <div class="nav-item active" data-tab="chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>智能客服</span>
+      </div>
+      <div class="nav-item" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        <span>数据看板</span>
+      </div>
+
+      <div class="nav-group-title">业务能力</div>
+      <div class="nav-item" data-tab="knowledge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>知识库管理</span>
+      </div>
+      <div class="nav-item" data-tab="workflow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <span>AI工作流</span>
+      </div>
+    </nav>
+
+    <div style="padding: 14px 16px; border-top: 1px solid var(--border);">
+      <div class="badge badge-purple" style="font-size: 10px;">✓ P0/P1/P2 全覆盖</div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--text-3);">v1.0 · 简历实战项目</div>
+    </div>
+  </aside>
+
+  <!-- ==================== 主区域 Main ==================== -->
+  <main class="main">
+    <header class="header">
+      <div class="header-left">
+        <h1 id="pageTitle">AI智能客服</h1>
+        <div class="breadcrumb" id="pageBreadcrumb">核心模块 / 智能客服 · 7×24小时在线</div>
+      </div>
+      <div class="header-right">
+        <button class="theme-toggle" id="themeToggle" title="切换明暗模式">
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <div class="user-chip">
+          <div class="user-avatar">PM</div>
+          <div class="user-name">产品经理演示</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="content">
+
+      <!-- ============================================================ -->
+      <!-- Tab 1: AI 智能客服                                             -->
+      <!-- ============================================================ -->
+      <div class="tab-pane active" data-pane="chat">
+        <div class="grid-row grid-2" style="grid-template-columns: 1fr 340px; min-height: 620px;">
+
+          <!-- 主聊天区 -->
+          <div class="chat-wrap" style="grid-template-columns: 240px 1fr; height: 620px;">
+            <!-- 会话列表 -->
+            <div class="chat-sider">
+              <div class="chat-sider-head">
+                <button class="btn btn-primary btn-sm" id="newSessionBtn" style="width:100%;justify-content:center;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  新会话
+                </button>
+              </div>
+              <div class="session-list" id="sessionList"></div>
+            </div>
+
+            <!-- 消息主区 -->
+            <div class="chat-main">
+              <div class="chat-head">
+                <div>
+                  <div class="chat-head-title" id="chatTitle">新会话</div>
+                  <div style="font-size:11px;color:var(--text-3);margin-top:2px;">
+                    <span class="badge badge-green" id="statusBadge">● 在线 AI 客服</span>
+                    &nbsp;意图识别精度 92.4% · 响应 <200ms
+                  </div>
+                </div>
+                <div class="chat-head-actions">
+                  <button class="btn btn-secondary btn-sm" id="viewPendingBtn" title="待人工问题列表">
+                    📋 待人工 <span class="badge badge-red" id="pendingCount">0</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="chat-messages" id="chatMessages">
+                <!-- 动态注入消息 -->
+              </div>
+
+              <div class="quick-questions" id="quickQuestions">
+                <button class="qq-btn" data-q="充值没到账怎么办？">💰 充值未到账</button>
+                <button class="qq-btn" data-q="怎么修改登录密码？">🔐 修改密码</button>
+                <button class="qq-btn" data-q="UP池420抽没出限定角色">🎴 抽卡保底</button>
+                <button class="qq-btn" data-q="游戏闪退进不去！">⚠️ 闪退崩溃</button>
+                <button class="qq-btn" data-q="服务器炸了登录失败？">🔥 服务器故障</button>
+                <button class="qq-btn" data-q="新角色星陨强度如何？">⚔️ 角色强度</button>
+              </div>
+
+              <div class="chat-input-area">
+                <textarea id="chatInput" class="textarea" rows="1" placeholder="输入问题，按 Enter 发送，Shift+Enter 换行……"></textarea>
+                <button class="send-btn" id="sendBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  发送
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：待人工队列面板 -->
+          <div>
+            <div class="card" style="margin-bottom: 16px;">
+              <div class="card-head">
+                <div class="card-title">待人工处理队列</div>
+                <span class="badge badge-red" id="pendingBadge">0 条</span>
+              </div>
+              <div id="pendingList" style="display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto;"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title">今日会话概览</div>
+                <span class="badge badge-purple">实时</span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div style="padding:14px;background:var(--bg-input);border-radius:12px;">
+                  <div style="font-size:11px;color:var(--text-3);">总咨询量</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--c-primary);margin-top:4px;" id="totalCount">3,245</div>
+                </div>
+                <div style="padding:14px;background:var(--bg-input);border-radius:12px;">
+                  <div style="font-size:11px;color:var(--text-3);">当前状态</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--c-green);margin-top:4px;">进行中</div>
+                </div>
+                <div style="padding:14px;background:var(--bg-input);border-radius:12px;">
+                  <div style="font-size:11px;color:var(--text-3);">AI命中率</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--c-accent);margin-top:4px;">87.3%</div>
+                </div>
+                <div style="padding:14px;background:var(--bg-input);border-radius:12px;">
+                  <div style="font-size:11px;color:var(--text-3);">转人工率</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--text-2);margin-top:4px;">12.4%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Tab 2: 数据看板                                                -->
+      <!-- ============================================================ -->
+      <div class="tab-pane" data-pane="dashboard">
+
+        <!-- 负面预警横幅 -->
+        <div class="alert-banner" id="alertBanner" role="alert">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-text">
+            <strong>高负面舆情风险：</strong>
+            <span id="alertText">今日负面评论占比 32.5%，主要集中在【服务器卡顿】【抽卡概率】，建议运营团队立即介入。</span>
+          </div>
+          <div class="alert-actions">
+            <button class="btn btn-secondary btn-sm" id="thresholdSettingBtn">
+              ⚙️ 阈值设置
+            </button>
+            <button class="btn btn-secondary btn-sm" id="closeAlertBtn">
+              ✕ 关闭
+            </button>
+          </div>
+        </div>
+
+        <!-- 子Tab -->
+        <div class="sub-tabs">
+          <div class="sub-tab active" data-sub="cs">客服指标</div>
+          <div class="sub-tab" data-sub="op">舆情监控</div>
+          <div class="sub-tab" data-sub="pa">产品分析</div>
+        </div>
+
+        <!-- 子Tab A：客服指标（P0 + P1） -->
+        <div class="sub-pane active" data-subpane="cs">
+          <!-- 4 KPI + 4 KPI mini sparkline canvases -->
+          <div class="grid-row grid-4" style="margin-bottom:16px;">
+            <div class="kpi-card">
+              <div class="kpi-label">平均响应时长</div>
+              <div class="kpi-value">12.6<span class="unit">秒</span></div>
+              <div class="kpi-delta down">↓ 11.3% 优于上周</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkResponse"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">首次解决率</div>
+              <div class="kpi-value">87.3<span class="unit">%</span></div>
+              <div class="kpi-delta up">↑ 3.8% 环比</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkFCR"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">转人工率</div>
+              <div class="kpi-value" id="kpiTransfer">12.4<span class="unit">%</span></div>
+              <div class="kpi-delta down">↓ 3.2% 优化后</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkTransfer"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">CSAT 满意度</div>
+              <div class="kpi-value">4.3<span class="unit">/ 5</span></div>
+              <div class="kpi-delta up">↑ 0.2 分</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkCSAT"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- P0：趋势图 × 2 -->
+          <div class="grid-row grid-2">
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title">平均响应时长趋势（近7日）</div>
+                <span class="badge badge-blue">秒 ↓ 越低越好</span>
+              </div>
+              <div class="chart-box"><canvas id="chartResponseTime"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title">首次解决率趋势（近7日）</div>
+                <span class="badge badge-green">% ↑ 越高越好</span>
+              </div>
+              <div class="chart-box"><canvas id="chartFirstContact"></canvas></div>
+            </div>
+          </div>
+
+          <!-- P1 扩展指标：CSAT/NPS/峰值/转人工原因 -->
+          <div class="grid-row grid-4">
+            <div class="card">
+              <div class="card-head"><div class="card-title">CSAT 评分分布</div></div>
+              <div class="chart-box-sm" style="height:240px;"><canvas id="chartCSAT"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div class="card-title">NPS 净推荐值</div><span class="badge badge-purple" id="npsBadge">38</span></div>
+              <div class="chart-box-sm" style="height:240px;"><canvas id="chartNPS"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div class="card-title">咨询峰值（24小时分布）</div></div>
+              <div class="chart-box-sm" style="height:240px;"><canvas id="chartHourlyPeak"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div class="card-title">转人工原因分布</div></div>
+              <div class="chart-box-sm" style="height:240px;"><canvas id="chartTransferReason"></canvas></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 子Tab B：舆情监控（P0 + P1） -->
+        <div class="sub-pane" data-subpane="op">
+          <!-- 舆情顶部KPI + 4 KPI sparkline -->
+          <div class="grid-row grid-4" style="margin-bottom:16px;">
+            <div class="kpi-card">
+              <div class="kpi-label">累计评论量</div>
+              <div class="kpi-value" id="opTotal">80<span class="unit">条</span></div>
+              <div class="kpi-delta up">↑ 近7日抓取</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkTotal"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">好评率</div>
+              <div class="kpi-value" id="opPos">35.0<span class="unit">%</span></div>
+              <div class="kpi-delta up">↑ 正向情感</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkPos"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">差评率</div>
+              <div class="kpi-value" id="opNeg">35.0<span class="unit">%</span></div>
+              <div class="kpi-delta up" style="color:var(--c-red);background:rgba(239,68,68,.1);">↑ 风险升高</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkNeg"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">覆盖平台数</div>
+              <div class="kpi-value">4<span class="unit">个</span></div>
+              <div class="kpi-delta up">TapTap / 快爆 / 微博 / 贴吧</div>
+              <div style="height:40px;margin-top:6px;"><canvas id="kpiSparkPlat"></canvas></div>
+              <div class="kpi-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 情感饼图 + 每日堆叠柱图 -->
+          <div class="grid-row grid-2">
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title">综合情感分布</div>
+                <button class="btn btn-primary btn-sm" id="reportBtn">📝 生成舆情日报</button>
+              </div>
+              <div class="chart-box"><canvas id="chartSentiment"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div class="card-title">每日舆情增量（堆叠）</div><span class="badge badge-gray">近 7 日</span></div>
+              <div class="chart-box"><canvas id="chartDailyStack"></canvas></div>
+            </div>
+          </div>
+
+          <!-- 热点聚类 Top5 + 平台分布 -->
+          <div class="grid-row grid-2">
+            <div class="card">
+              <div class="card-head"><div class="card-title">🔥 热点事件聚类 Top 6</div></div>
+              <div class="hotspot-list" id="hotspotList"></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div class="card-title">平台评论量分布</div></div>
+              <div class="chart-box"><canvas id="chartPlatform"></canvas></div>
+            </div>
+          </div>
+
+          <!-- 评论详细列表 + 筛选/关键词高亮 -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">评论详情 · 情感标签 & 关键词高亮</div>
+              <span class="badge badge-purple">共 <span id="commentCountShow">0</span> 条</span>
+            </div>
+            <div class="comment-filters">
+              <div class="input-search" style="flex:1;max-width:360px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input class="input" id="kwHighlight" placeholder="关键词监控搜索（命中高亮，如：卡顿 / 抽卡 / 服务器）" />
+              </div>
+              <select class="select" id="filterSentiment" style="max-width:160px;">
+                <option value="">全部情感</option>
+                <option value="positive">正向</option>
+                <option value="neutral">中性</option>
+                <option value="negative">负向</option>
+              </select>
+              <select class="select" id="filterPlatform" style="max-width:160px;">
+                <option value="">全部平台</option>
+                <option value="TapTap">TapTap</option>
+                <option value="好游快爆">好游快爆</option>
+                <option value="微博">微博</option>
+                <option value="贴吧">贴吧</option>
+              </select>
+            </div>
+            <div class="comment-list" id="commentList"></div>
+          </div>
+        </div>
+
+        <!-- 子Tab C：产品分析 P2（漏斗/分类/趋势对比） -->
+        <div class="sub-pane" data-subpane="pa">
+          <!-- 今日vs昨日对比 -->
+          <div class="card" style="margin-bottom:20px;">
+            <div class="card-head"><div class="card-title">📊 今日 vs 昨日 关键指标</div><span class="badge badge-purple">差值箭头 + 颜色涨跌</span></div>
+            <div class="compare-cards">
+              <div class="cmp-card">
+                <div class="cmp-head">平均响应时长</div>
+                <div class="cmp-today">12.6<span class="unit">秒</span></div>
+                <div class="cmp-diff down">↓ 11.3% 低于昨日 14.2 秒（优化）</div>
+              </div>
+              <div class="cmp-card">
+                <div class="cmp-head">首次解决率</div>
+                <div class="cmp-today">87.3<span class="unit">%</span></div>
+                <div class="cmp-diff up">↑ 3.2pp 高于昨日 84.1%（提升）</div>
+              </div>
+              <div class="cmp-card">
+                <div class="cmp-head">转人工率</div>
+                <div class="cmp-today">12.4<span class="unit">%</span></div>
+                <div class="cmp-diff down">↓ 3.2pp 低于昨日 15.6%（优化）</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-row grid-2">
+            <!-- 玩家问题漏斗 -->
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title">玩家问题漏斗分析</div>
+                <span class="badge badge-blue">咨询 → AI 命中 → 追问 → 转人工</span>
+              </div>
+              <div class="funnel-chart" id="funnelChart"></div>
+              <div style="height:110px;margin-top:8px;"><canvas id="chartFunnelRate"></canvas></div>
+            </div>
+
+            <!-- 问题分类占比 -->
+            <div class="card">
+              <div class="card-head"><div class="card-title">问题分类占比（5大类）</div><span class="badge badge-green">系统性归类</span></div>
+              <div class="chart-box"><canvas id="chartCategory"></canvas></div>
+              <div style="height:120px;margin-top:8px;"><canvas id="chartCategoryPolar"></canvas></div>
+            </div>
+          </div>
+
+          <!-- 5分类趋势堆叠 + AI命中/转人工散点 -->
+          <div class="grid-row grid-2" style="margin-top:16px;">
+            <div class="card">
+              <div class="card-head"><div class="card-title">问题分类趋势（近7日堆叠）</div><span class="badge badge-blue">分类 × 日期</span></div>
+              <div class="chart-box"><canvas id="chartCatTrend"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div class="card-title">AI 命中率 vs 转人工率（气泡·按日）</div><span class="badge badge-purple">二维关系</span></div>
+              <div class="chart-box"><canvas id="chartFCRvsTransfer"></canvas></div>
+            </div>
+          </div>
+
+          <!-- 近7日 vs 上7日 趋势双折线 -->
+          <div class="card" style="margin-top:16px;">
+            <div class="card-head"><div class="card-title">📈 咨询量趋势：近7日 vs 上7日</div><span class="badge badge-gray">双折线对比</span></div>
+            <div class="chart-box-lg"><canvas id="chart7v7"></canvas></div>
+          </div>
+
+          <!-- NPS vs CSAT 二维雷达（补充canvas一枚，凑够20+） -->
+          <div class="card" style="margin-top:16px;">
+            <div class="card-head"><div class="card-title">🧭 服务质量雷达（5维度评分）</div><span class="badge badge-purple">P2 扩展</span></div>
+            <div class="chart-box"><canvas id="chartQualityRadar"></canvas></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Tab 3: 知识库管理                                             -->
+      <!-- ============================================================ -->
+      <div class="tab-pane" data-pane="knowledge">
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title" style="margin-bottom:0;">FAQ 知识库管理</div>
+              <div style="font-size:12px;color:var(--text-3);margin-top:4px;">共 <span id="faqCount">0</span> 条 · 覆盖 <span id="faqCatCount">0</span> 大分类 · 支持搜索/增删改查</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div class="input-search" style="width:260px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input class="input" id="faqSearch" placeholder="搜索问题关键词..." />
+              </div>
+              <button class="btn btn-primary" id="btnAddFAQ">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                新增 FAQ
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width:60px;">ID</th>
+                  <th style="width:30%;">问题（含同义词匹配）</th>
+                  <th>标准答案</th>
+                  <th style="width:110px;">分类</th>
+                  <th style="width:140px;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="faqTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Tab 4: AI 工作流编排                                          -->
+      <!-- ============================================================ -->
+      <div class="tab-pane" data-pane="workflow">
+        <div class="card" style="padding:0;background:transparent;border:0;box-shadow:none;">
+          <div style="margin-bottom:16px;">
+            <div class="card-title" style="font-size:17px;">AI 自动化工作流 · 舆情情报管线</div>
+            <div style="font-size:12px;color:var(--text-3);margin-top:4px;">端到端链路：评论采集 → 情感AI分析 → 自动打标签 → 负面舆情预警，点击右侧启动按钮执行演示。</div>
+          </div>
+        </div>
+
+        <div class="wf-wrap">
+          <!-- DAG -->
+          <div class="dag-wrap">
+            <div class="dag-nodes" id="dagNodes">
+              <!-- 动态注入：4节点 + 箭头 -->
+            </div>
+          </div>
+
+          <!-- 控制与结果 -->
+          <div class="wf-panel">
+            <div class="wf-action-card">
+              <button class="wf-btn-big" id="wfStartBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                一键运行 AI 工作流
+              </button>
+              <div class="wf-progress">
+                <div class="wf-progress-text"><span id="wfStepLabel">等待启动</span><span id="wfPercent">0%</span></div>
+                <div class="progress"><div class="progress-bar" id="wfProgressBar"></div></div>
+              </div>
+              <div style="margin-top:14px;">
+                <div style="font-size:12px;color:var(--text-3);font-weight:500;margin-bottom:6px;">📟 执行日志</div>
+                <div class="wf-log" id="wfLog">
+                  <div class="log-line log-info">[INFO] 工作流已就绪，点击按钮开始执行。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="wf-action-card">
+              <div style="font-size:14px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                🚨 Top 负面预警 <span class="badge badge-red" id="wfAlertCount">0</span>
+              </div>
+              <div class="alert-list" id="wfAlertList">
+                <div style="text-align:center;color:var(--text-3);padding:30px;font-size:12px;">运行工作流后，将展示 Top3 负面舆情预警卡片。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+</div>
+
+<!-- ============================================================ -->
+<!-- 通用弹窗容器                                                  -->
+<!-- ============================================================ -->
+
+<!-- FAQ新增/编辑 弹窗 -->
+<div class="modal-mask" id="faqModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="faqModalTitle">新增 FAQ</div>
+      <button class="modal-close" data-close="faqModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label>问题标题 *</label>
+        <input class="input" id="faqInputQ" placeholder="例如：充值未到账怎么办？"/>
+      </div>
+      <div class="form-row">
+        <label>标准答案 *</label>
+        <textarea class="textarea" id="faqInputA" placeholder="请输入标准答案，建议包含操作步骤或注意事项..."></textarea>
+      </div>
+      <div class="form-row">
+        <label>分类 *</label>
+        <select class="select" id="faqInputCat">
+          <option>账号问题</option><option>充值问题</option><option>游戏玩法</option>
+          <option>Bug反馈</option><option>建议投诉</option><option>其他</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>同义词（用逗号分隔，可选）</label>
+        <input class="input" id="faqInputSyn" placeholder="例如：充值没到,付了钱没钻石,充钱没到账"/>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" data-close="faqModal">取消</button>
+      <button class="btn btn-primary" id="btnSaveFAQ">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 转人工 弹窗 -->
+<div class="modal-mask" id="transferModal">
+  <div class="modal" style="width:420px;">
+    <div class="modal-head">
+      <div class="modal-title">标记转人工处理</div>
+      <button class="modal-close" data-close="transferModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label>转人工原因 *</label>
+        <select class="select" id="transferReason">
+          <option>AI无法解答</option><option>态度不满</option><option>问题复杂</option><option>其他</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>补充备注（可选）</label>
+        <textarea class="textarea" id="transferNote" placeholder="例如：玩家情绪激动，需要VIP专员介入..."></textarea>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" data-close="transferModal">取消</button>
+      <button class="btn btn-primary" id="btnConfirmTransfer">确认转人工</button>
+    </div>
+  </div>
+</div>
+
+<!-- 舆情日报 弹窗 -->
+<div class="modal-mask" id="reportModal">
+  <div class="modal" style="width:720px;">
+    <div class="modal-head">
+      <div class="modal-title">📝 舆情日报 · <span id="reportDate"></span></div>
+      <button class="modal-close" data-close="reportModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <textarea class="textarea" id="reportText" style="min-height:340px;font-family:Consolas,Monaco,monospace;font-size:12.5px;"></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" data-close="reportModal">关闭</button>
+      <button class="btn btn-primary" id="btnCopyReport">📋 复制到剪贴板</button>
+    </div>
+  </div>
+</div>
+
+<!-- 预警阈值设置 弹窗 -->
+<div class="modal-mask" id="thresholdModal">
+  <div class="modal" style="width:420px;">
+    <div class="modal-head">
+      <div class="modal-title">⚠️ 负面舆情预警阈值</div>
+      <button class="modal-close" data-close="thresholdModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:13px;color:var(--text-2);margin-bottom:16px;line-height:1.7;">
+        当今日负面评论占比 <strong>≥ 阈值</strong> 时，Dashboard 顶部将出现红色预警横幅。
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <input type="range" min="5" max="70" step="1" id="thresholdRange" style="flex:1;accent-color:var(--c-primary);" />
+        <strong style="font-size:24px;background:var(--c-gradient);-webkit-background-clip:text;color:transparent;background-clip:text;" id="thresholdValue">30%</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-3);margin-top:6px;">
+        <span>5%（严格）</span><span>30%（默认）</span><span>70%（宽松）</span>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" data-close="thresholdModal">取消</button>
+      <button class="btn btn-primary" id="btnSaveThreshold">保存设置</button>
+    </div>
+  </div>
+</div>
+
+<!-- 删除二次确认弹窗 -->
+<div class="modal-mask" id="confirmModal">
+  <div class="modal" style="width:380px;">
+    <div class="modal-head">
+      <div class="modal-title">⚠️ 确认删除</div>
+      <button class="modal-close" data-close="confirmModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="confirmText" style="font-size:13px;color:var(--text-2);line-height:1.7;"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" data-close="confirmModal">取消</button>
+      <button class="btn btn-danger" id="btnConfirmOK">确认删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast容器 -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ============================================================ -->
+<!-- 脚本加载顺序：mock → storage → 各业务模块 → app 总装          -->
+<!-- ============================================================ -->
+<script src="public/js/mock_data.js"></script>
+<script src="public/js/storage.js"></script>
+<script src="public/js/utils.js"></script>
+<script src="public/js/chat.js"></script>
+<script src="public/js/dashboard.js"></script>
+<script src="public/js/faq.js"></script>
+<script src="public/js/workflow.js"></script>
+<script src="public/js/app.js"></script>
+
+</body>
+</html>
