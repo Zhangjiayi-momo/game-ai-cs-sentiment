@@ -6,3 +6,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 *.log
+
+# 私密文档，永远不公开到 GitHub（仅本地存放，面试背稿用）
+docs\面试逐字稿_私密勿公开.md
+# 个人/本地 API Key 凭证，绝对不能上传
+*.env
+credentials.json
